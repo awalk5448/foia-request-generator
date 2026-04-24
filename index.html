@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FOIA Request Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light mode">
+        <span class="theme-toggle-icon" id="theme-toggle-icon">&#x2600;</span>
+    </button>
+    <header class="hero">
+      <div class="corner-accent-tl" aria-hidden="true"></div>
+      <section class="hero-content">
+        <p class="eyebrow">Public records made simple</p>
+        <div class="hero-ornament" aria-hidden="true"><span></span></div>
+        <h1>FOIA Request<br>Generator</h1>
+        <p class="hero-description">Select your state. Describe what you need. Get a letter that cites the right law.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#generator">Get started</a>
+          <span class="hero-meta">51 jurisdictions covered</span>
+        </div>
+      </section>
+    </header>
+
+    <div class="section-divider" aria-hidden="true"><span></span></div>
+
+    <section class="section how-it-works">
+      <div class="section-heading" style="text-align: center; max-width: 600px; margin: 0 auto 24px;">
+        <h2>How it works</h2>
+      </div>
+      <div class="how-steps">
+        <div class="how-step">
+          <span class="how-step-number">1</span>
+          <h3>Choose your state</h3>
+          <p>Select any U.S. state or the District of Columbia. The tool loads that jurisdiction's specific public records law, deadlines, and fee provisions.</p>
+        </div>
+        <div class="how-step">
+          <span class="how-step-number">2</span>
+          <h3>Describe your request</h3>
+          <p>Enter the agency name and describe the records you need. The more specific you are, the faster and more successful your request is likely to be.</p>
+        </div>
+        <div class="how-step">
+          <span class="how-step-number">3</span>
+          <h3>Get your letter</h3>
+          <p>The tool generates a professional request letter citing the correct state law. Copy it, download it as a PDF, or print it — ready to send.</p>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section id="generator" class="section generator-section">
+        <div class="section-heading">
+          <p class="section-kicker">Request Builder</p>
+          <h2>Step-by-step drafting flow</h2>
+          <p>Move through the form to assemble a request, preview the result, and prepare it for sharing.</p>
+        </div>
+
+        <div class="generator-grid">
+          <div class="wizard-card">
+            <ol class="progress-steps" aria-label="Progress">
+              <li class="progress-step active" data-step-indicator="1">
+                <span class="step-number">1</span>
+                <span class="step-text">State</span>
+              </li>
+              <li class="progress-step" data-step-indicator="2">
+                <span class="step-number">2</span>
+                <span class="step-text">Details</span>
+              </li>
+              <li class="progress-step" data-step-indicator="3">
+                <span class="step-number">3</span>
+                <span class="step-text">Letter</span>
+              </li>
+            </ol>
+
+            <form class="wizard-form" autocomplete="on">
+              <section class="wizard-panel active" data-step="1" aria-labelledby="step-1-title">
+                <div class="panel-header">
+                  <p class="panel-kicker">Step 1</p>
+                  <h3 id="step-1-title">Select your state</h3>
+                </div>
+
+                  <label class="field">
+                    <span class="field-label">State or District <span class="required-mark">*</span></span>
+                    <select id="state-select" name="state" required>
+                      <option value="">Choose a state</option>
+                    </select>
+                  </label>
+
+                <div class="note-box">
+                  <p>Choose any state or district to load its law summary, deadline, fee guidance, appeals path, and sample opening.</p>
+                </div>
+
+                <div id="state-inline-details"></div>
+              </section>
+
+              <section class="wizard-panel" data-step="2" aria-labelledby="step-2-title">
+                <div class="panel-header">
+                  <p class="panel-kicker">Step 2</p>
+                  <h3 id="step-2-title">Request details</h3>
+                </div>
+
+                <div class="form-grid">
+                  <label class="field field-span-2">
+                    <span class="field-label">Agency name <span class="required-mark">*</span></span>
+                    <input type="text" name="agencyName" placeholder="Agency or department name" required />
+                  </label>
+                  <div class="field field-span-2">
+                    <button type="button" class="inline-toggle" id="agency-address-toggle" aria-expanded="false" aria-controls="agency-address-fields">Add agency address (optional)</button>
+                    <div id="agency-address-fields" class="inline-toggle-panel" hidden>
+                      <div class="form-grid compact-grid">
+                        <label class="field field-span-2">
+                          <span class="field-label">Street address</span>
+                          <input type="text" name="agencyStreet" placeholder="123 Main Street" />
+                        </label>
+                        <label class="field">
+                          <span class="field-label">City</span>
+                          <input type="text" name="agencyCity" placeholder="City" />
+                        </label>
+                        <label class="field">
+                          <span class="field-label">State</span>
+                          <input type="text" name="agencyState" placeholder="AL" maxlength="2" style="text-transform: uppercase;" />
+                        </label>
+                        <label class="field">
+                          <span class="field-label">ZIP code</span>
+                          <input type="text" name="agencyZip" inputmode="numeric" placeholder="36101" maxlength="10" />
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <label class="field field-span-2">
+                    <span class="field-label">Description of records <span class="required-mark">*</span></span>
+                    <textarea name="recordsDescription" rows="6" placeholder="Describe the records you want to request" required></textarea>
+                  </label>
+                  <fieldset class="field field-span-2">
+                    <legend class="field-label field-label-with-help">
+                      <span>Preferred format</span>
+                      <button type="button" class="tooltip-trigger" aria-expanded="false" aria-describedby="preferred-format-tooltip" data-tooltip-target="preferred-format-tooltip">?</button>
+                      <span class="tooltip-bubble" id="preferred-format-tooltip" role="tooltip">Choose how you'd like to receive the records. 'Electronic' means digital files sent via email or download. 'Paper copies' means physical printed documents mailed to you. 'In-person inspection' means you visit the agency to view the records on-site.</span>
+                    </legend>
+                    <div class="choice-row">
+                      <label><input type="radio" name="format" value="paper" /> Paper</label>
+                      <label><input type="radio" name="format" value="electronic" checked /> Electronic</label>
+                      <label><input type="radio" name="format" value="inspection" /> In-person inspection</label>
+                    </div>
+                  </fieldset>
+                  <fieldset class="field field-span-2">
+                    <legend class="field-label field-label-with-help">
+                      <span>Fee preference</span>
+                      <button type="button" class="tooltip-trigger" aria-expanded="false" aria-describedby="fee-preference-tooltip" data-tooltip-target="fee-preference-tooltip">?</button>
+                      <span class="tooltip-bubble" id="fee-preference-tooltip" role="tooltip">Most agencies charge fees for copies and sometimes staff time. You can agree to pay reasonable fees, request a fee waiver (usually for public-interest purposes), or set a maximum dollar amount you're willing to pay.</span>
+                    </legend>
+                    <div class="choice-stack">
+                      <label><input type="radio" name="fee" value="pay" checked /> Willing to pay reasonable fees</label>
+                      <label><input type="radio" name="fee" value="waiver" /> Request fee waiver</label>
+                      <label><input type="radio" name="fee" value="limit" /> Set a fee limit</label>
+                    </div>
+                  </fieldset>
+
+                  <label class="field field-span-2 conditional-field" id="fee-limit-field" hidden>
+                    <span class="field-label">Fee limit amount</span>
+                    <input type="text" name="feeLimit" placeholder="Example: $25.00" />
+                  </label>
+
+                  <label class="field">
+                    <span class="field-label">Requester name <span class="required-mark">*</span></span>
+                    <input type="text" name="requesterName" placeholder="Your full name" required />
+                  </label>
+                  <label class="field field-span-2">
+                    <span class="field-label">Street address</span>
+                    <input type="text" name="requesterStreet" placeholder="123 Main Street" />
+                  </label>
+                  <label class="field">
+                    <span class="field-label">City</span>
+                    <input type="text" name="requesterCity" placeholder="City" />
+                  </label>
+                  <label class="field">
+                    <span class="field-label">State</span>
+                    <input type="text" name="requesterState" placeholder="AL" maxlength="2" style="text-transform: uppercase;" />
+                  </label>
+                  <label class="field">
+                    <span class="field-label">ZIP code</span>
+                    <input type="text" name="requesterZip" inputmode="numeric" placeholder="36101" maxlength="10" />
+                  </label>
+                  <label class="field">
+                    <span class="field-label">Email <span class="required-mark">*</span></span>
+                    <input type="email" name="requesterEmail" placeholder="name@example.com" required />
+                  </label>
+                  <label class="field">
+                    <span class="field-label">Phone</span>
+                    <input type="tel" name="requesterPhone" inputmode="numeric" autocomplete="tel" placeholder="(555) 555-5555" />
+                  </label>
+                </div>
+              </section>
+
+              <section class="wizard-panel" data-step="3" aria-labelledby="step-3-title">
+                <div class="panel-header">
+                  <p class="panel-kicker">Step 3</p>
+                  <h3 id="step-3-title">Generated letter</h3>
+                </div>
+
+                <div class="letter-toolbar">
+                  <button class="button button-secondary" type="button" id="edit-letter">Edit</button>
+                  <button class="button button-secondary" type="button" id="save-letter" hidden>Save</button>
+                  <button class="button button-secondary" type="button" id="print-letter">Print</button>
+                  <button class="button button-secondary" type="button" id="download-pdf">Download PDF</button>
+                  <button class="button button-primary" type="button" id="copy-letter">Copy to clipboard</button>
+                </div>
+
+                <div class="generation-messages" id="generation-messages" aria-live="polite"></div>
+
+                <div class="letter-preview" aria-live="polite">
+                  <div id="letter-text" class="formal-letter"><p class="empty-state-note">Your generated letter will appear here.</p></div>
+                </div>
+              </section>
+
+                <div class="wizard-controls">
+                  <button class="button button-secondary" type="button" id="prev-step">Back</button>
+                  <button class="button button-secondary" type="button" id="new-request">Start New Request</button>
+                  <button class="button button-primary" type="button" id="next-step">Next</button>
+                </div>
+            </form>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="section-divider" aria-hidden="true"><span></span></div>
+
+      <section class="section faq-section">
+        <div class="section-heading">
+          <h2>Frequently asked questions</h2>
+          <p>Short answers to help users understand how the draft generator fits into the request process.</p>
+        </div>
+
+        <div class="faq-grid">
+          <details class="faq-item">
+            <summary>What is a public records request?</summary>
+            <p>It's a formal request to a government agency asking them to provide copies of or access to documents they hold. Every state has a law guaranteeing the public's right to inspect government records. These laws go by different names - FOIA, Open Records Act, Right to Know Law, Sunshine Law - but they all serve the same purpose: government transparency.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do I need a lawyer to file a request?</summary>
+            <p>No. Anyone can file a public records request. You don't need a lawyer, special training, or any particular reason. A well-written letter citing the correct law is all you need, which is exactly what this tool helps you create.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Does it cost anything to file a request?</summary>
+            <p>Filing the request itself is free. However, most agencies can charge fees for making copies, and some charge for the staff time to search for records. Fees vary by state and agency. Some states cap per-page costs, for example Illinois gives you the first 50 pages free. This tool includes relevant fee information for each state in the generated letter.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How long will it take to get my records?</summary>
+            <p>It depends on the state and the complexity of your request. Some states have strict deadlines, such as Illinois requiring a response within 5 business days, while others only require a response within a "reasonable" time. The letter this tool generates includes the applicable deadline for your state so the agency knows you're aware of it.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can my request be denied?</summary>
+            <p>Yes, but only for specific legal reasons. Every state has exemptions - categories of records that don't have to be disclosed, like ongoing criminal investigations, trade secrets, or certain personnel records. If your request is denied, the agency must tell you why and cite the specific exemption. Many states also have an appeals process.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can I request records from any state, or only the one I live in?</summary>
+            <p>Most states allow anyone to make a request regardless of where they live. However, a handful of states, including Alabama, Virginia, and others, require the requester to be a resident of that state or have a specific connection. This tool alerts you when a state has a residency requirement.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What kinds of records can I request?</summary>
+            <p>Generally, anything created or maintained by a government agency as part of its official business - emails, contracts, reports, budgets, meeting minutes, correspondence, inspection records, permits, policies, and more. The records can be in any format: paper, electronic, audio, video.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What if I don't know which agency has the records I need?</summary>
+            <p>Start with the agency most likely to be involved. For example, if you want building permits, try the city or county building department. If you want police records, contact the police department directly. Your state's general government directory or 211 helpline can also help you identify the right agency.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can I request records from private companies?</summary>
+            <p>No. Public records laws only apply to government agencies. For corporate records, you may need to explore other options like SEC filings, court records, or direct requests to the company.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Is this tool a substitute for legal advice?</summary>
+            <p>No. This tool generates request letters based on publicly available state law information. It is not legal advice. If your request involves sensitive legal matters or if your request is denied and you want to pursue legal action, consult an attorney familiar with your state's public records law.</p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>This tool generates request letters based on publicly available state law information. It is not legal advice.</p>
+      <div class="footer-links" aria-label="External resources">
+        <a href="https://www.nfoic.org/" target="_blank" rel="noreferrer noopener">NFOIC</a>
+        <a href="https://www.rcfp.org/open-government-guide/" target="_blank" rel="noreferrer noopener">Reporters Committee</a>
+        <a href="https://www.muckrock.com/" target="_blank" rel="noreferrer noopener">MuckRock</a>
+        <a href="https://www.foia.gov/" target="_blank" rel="noreferrer noopener">FOIA.gov</a>
+        <a href="https://www.foiabasics.org/" target="_blank" rel="noreferrer noopener">FOIA Basics</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="stateData.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
